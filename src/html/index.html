@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="leapboard" ng-controller="HomeController">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Leapboard &ndash; {{ title }}</title>
+  <link rel="stylesheet" href="css/main.css" />
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="js/leap-0.6.2.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/controller.js"></script>
+  <script src="js/directive.js"></script>
+  <script src="js/service.js"></script>
+</head>
+<body >
+
+<div class="container" >
+  <div class="col-lg-12">
+    <h1>Gesture Log</h1>
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="gesture in gestures"><i class="fa fa-fw fa-chevron-{{gesture.direction}}"></i> {{gesture.direction}}</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
