@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Leapboard &ndash; {{ title }}</title>
+  <title>Leapboard &ndash; {{title}}</title>
   <link rel="stylesheet" href="css/main.css" />
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -17,14 +17,21 @@
   <script src="js/directive.js"></script>
   <script src="js/service.js"></script>
 </head>
-<body >
+<body>
 
-<div class="container" >
-  <div class="col-lg-12">
-    <h1>Gesture Log</h1>
-    <ul class="list-group">
-      <li class="list-group-item" ng-repeat="gesture in gestures"><i class="fa fa-fw fa-chevron-{{gesture.direction}}"></i> {{gesture.direction}}</li>
-    </ul>
+<div class="container-fluid">
+  <div id="widget-carousel" class="carousel slide">
+    <ol class="carousel-indicators">
+      <li data-target="#widget-carousel" ng-repeat="widget in widgets" data-slide-to="{{widgets.indexOf(widget)}}" ng-class="{'active': widget.selected}"></li>
+    </ol>
+
+    <div class="carousel-inner">
+      <div class="item" ng-class="{'active': widget.selected || widgets.indexOf(widget) == 0}" ng-repeat="widget in widgets" ng-switch on="widget.name">
+        <h1>{{widget.title}}</h1>
+        <reddit ng-switch-when="reddit" links="widget.links"></reddit>
+        <span ng-switch-when="text">Erg</span>
+      </div>
+    </div>
   </div>
 </div>
 
