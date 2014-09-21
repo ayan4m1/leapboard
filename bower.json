@@ -1,0 +1,24 @@
+{
+  "name": "leapboard",
+  "version": "0.0.1",
+  "authors": [
+    "ayan4m1 <andrew@bulletlogic.com>"
+  ],
+  "ignore": [
+    "**/.*",
+    "dist/**",
+    "lib/**",
+    "node_modules/**"
+  ],
+  "dependencies": {
+    "bootstrap-sass-official": "3.2.x",
+    "bootswatch-scss": "3.2.x",
+    "fontawesome": "4.2.x",
+    "leapjs": "0.6.x"
+  },
+  "devDependencies": {
+    "bootstrap": "3.2.x",
+    "angular": "~1.2.23",
+    "angular-mocks": "~1.2.23"
+  }
+}
