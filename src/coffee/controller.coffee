@@ -16,6 +16,7 @@ module.controller 'HomeController', ['$scope', '$http', 'input', ($scope, $http,
         @links = data.data.children.map (v) ->
           href: v.data.url
           title: v.data.title
+          thumbnail: v.data.thumbnail
 
   class TextWidget extends Widget
     constructor: -> super 'text', 'Text'
