@@ -25,6 +25,8 @@ gulp.task 'default', ['update'], ->
 gulp.task 'update', ->
   gulp.src("#{lib}leapjs/leap*.min.js").pipe(gulp.dest("#{dist}js"))
   gulp.src("#{lib}fontawesome/fonts/*").pipe(gulp.dest("#{dist}fonts"))
+  gulp.src("#{lib}weather-icons/font/*").pipe(gulp.dest("#{dist}font"))
+  gulp.src("#{lib}weather-icons/css/*.min.css").pipe(gulp.dest("#{dist}css"))
   gulp.src("#{src}img/*").pipe(gulp.dest("#{dist}img"))
   exts[ext] gulp.src "src/#{ext}/**/*.#{ext}" for ext of exts
 
