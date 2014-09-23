@@ -10,6 +10,7 @@ src = 'src/'
 dist = 'dist/'
 lib = 'lib/'
 test = __dirname + '/test/'
+port = 3000
 
 # extension -> gulp middleware mapping
 exts =
@@ -18,8 +19,8 @@ exts =
   html: (src) -> src.pipe(watch()).pipe(gulp.dest(dist))
 
 gulp.task 'default', ['update'], ->
-  http.createServer({root: 'dist/'}).listen(80)
-  console.log('app listening at http://localhost/')
+  http.createServer({root: 'dist/'}).listen(port)
+  console.log("app listening at http://localhost:#{port}/")
 
 gulp.task 'update', ->
   gulp.src("#{lib}leapjs/leap*.min.js").pipe(gulp.dest("#{dist}js"))
