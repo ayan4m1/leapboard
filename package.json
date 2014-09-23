@@ -1,5 +1,6 @@
 {
   "name": "leapboard",
+  "description": "leap motion dashboard",
   "repository": "ayan4m1/leapboard",
   "version": "0.0.1",
   "dependencies": {
