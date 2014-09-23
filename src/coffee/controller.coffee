@@ -32,13 +32,10 @@ module.controller 'HomeController', ['$scope', '$http', 'input', ($scope, $http,
     new TextWidget()
   ]
   $scope.select = (idx) ->
-    console.log(idx)
     $scope.selected.selected = false if $scope.selected?
     $scope.selected = $scope.widgets[idx]
     $scope.selected.selected = true
     $scope.selected.update()
-    $scope.$apply()
-
 
   inputProvider.onSwipe = (direction) ->
     idx = $scope.widgets.indexOf($scope.selected)
@@ -50,4 +47,5 @@ module.controller 'HomeController', ['$scope', '$http', 'input', ($scope, $http,
     $scope.select(idx)
 
   inputProvider.connect()
+  $scope.select(0)
 ]
