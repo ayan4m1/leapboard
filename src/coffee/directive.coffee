@@ -5,3 +5,9 @@ module.directive 'reddit', ->
   scope:
     links: '='
   templateUrl: 'partials/reddit.html'
+
+module.directive 'weather', ->
+  restrict: 'E'
+  scope:
+    observation: '='
+  templateUrl: 'partials/weather.html'

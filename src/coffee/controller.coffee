@@ -1,38 +1,16 @@
 module = angular.module 'leapboard.controller', ['leapboard.service']
 
-class Widget
-  constructor: (@name, @title) ->
-  selected: false
-  update: ->
-
-module.controller 'HomeController', ['$scope', '$http', 'input', ($scope, $http, inputProvider) ->
-  class RedditWidget extends Widget
-    constructor: -> super 'reddit', 'Reddit'
-    update: ->
-      $http(
-        method: 'GET'
-        url: 'http://www.reddit.com/.json'
-      ).success (data) =>
-        @links = data.data.children.map (v) ->
-          href: v.data.url
-          title: v.data.title
-          thumbnail: v.data.thumbnail
-
-  class TextWidget extends Widget
-    constructor: -> super 'text', 'Text'
-    update: ->
-      @text = 'Umm this.'
-
+module.controller 'HomeController', ['$scope', '$http', 'input', 'redditWidget', 'weatherWidget', ($scope, $http, inputProvider, redditWidget, weatherWidget) ->
   $('#widget-carousel').carousel(
     interval: false
   )
   $scope.title = 'Home'
   $scope.widgets = [
-    new RedditWidget()
-    new TextWidget()
+    redditWidget()
+    weatherWidget('changeme') # todo: make this configurable
   ]
   $scope.select = (idx) ->
-    $scope.selected.selected = false if $scope.selected?
+    $scope.selected?.selected = false
     $scope.selected = $scope.widgets[idx]
     $scope.selected.selected = true
     $scope.selected.update()
@@ -40,8 +18,12 @@ module.controller 'HomeController', ['$scope', '$http', 'input', ($scope, $http,
   inputProvider.onSwipe = (direction) ->
     idx = $scope.widgets.indexOf($scope.selected)
 
-    if direction is 'left' then $('#widget-carousel').carousel('next')
-    else if direction is 'right' then $('#widget-carousel').carousel('prev')
+    if direction is 'left'
+      idx--
+      $('#widget-carousel').carousel('next')
+    else if direction is 'right'
+      idx++
+      $('#widget-carousel').carousel('prev')
 
     idx = if idx < 0 then 0 else if idx >= $scope.widgets.length then $scope.widgets.length - 1 else idx
     $scope.select(idx)

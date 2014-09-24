@@ -7,6 +7,7 @@
 
   <title>Leapboard &ndash; {{title}}</title>
   <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/weather-icons.min.css" />
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.js"></script>
@@ -26,10 +27,10 @@
     </ol>
 
     <div class="carousel-inner">
-      <div class="item" ng-class="{'active': widget.selected || widgets.indexOf(widget) == 0}" ng-repeat="widget in widgets" ng-switch on="widget.name">
+      <div class="item" ng-class="{'active': widget.selected || widgets.indexOf(widget) == 0}" ng-repeat="widget in widgets" ng-switch on="widget.id">
         <h1>{{widget.title}}</h1>
         <reddit ng-switch-when="reddit" links="widget.links"></reddit>
-        <span ng-switch-when="text">Erg</span>
+        <weather ng-switch-when="weather" observation="widget.observation"></weather>
       </div>
     </div>
   </div>
