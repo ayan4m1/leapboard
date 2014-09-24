@@ -1,4 +1,4 @@
-module = angular.module 'leapboard.service', []
+module = angular.module 'leapboard.service', ['leapboard.config']
 
 module.factory 'input', ['$window', ($window) ->
   swipeWatcher: null
@@ -8,6 +8,7 @@ module.factory 'input', ['$window', ($window) ->
   threshold: 10
   connect: ->
     @controller = new $window.Leap.Controller(
+      host: '172.27.127.113'
       enableGestures: true
     )
     @controller.connect()
@@ -48,13 +49,13 @@ module.factory 'redditWidget', ['$http', ($http) ->
           thumbnail: v.data.thumbnail
 ]
 
-module.factory 'weatherWidget', ['$http', ($http) ->
-  (apiKey) ->
+module.factory 'weatherWidget', ['$http', 'weather', ($http, weather) ->
+  (apiKey, zip) ->
     id: 'weather'
-    baseUri: 'http://api.wunderground.com/api'
-    'apiKey': apiKey
+    lastUpdate: 0
     update: ->
-      $http.jsonp("#{@baseUri}/#{@apiKey}/conditions/q/CA/Mountain%20View.json?callback=JSON_CALLBACK")
+      $http.jsonp("#{weather.baseUri}/#{weather.apiKey}/conditions/q/#{weather.zip}.json?callback=JSON_CALLBACK")
       .success (data) =>
+        @lastUpdate = new Date().getTime()
         @observation = data.current_observation
 ]
