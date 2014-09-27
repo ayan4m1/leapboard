@@ -1,15 +1,26 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 alert alert-primary">
-            <h1>{{observation.observation_location.full}}</h1>
-        </div>
         <div class="col-md-3">
-            <i class="wi wi-lg wi-day-cloudy"></i>
+            <h1>{{observation.name}}</h1>
+            <i class="wi wi-lg" ng-class="{
+                'wi-day-sunny': observation.weather[0].id == 800,
+                'wi-day-cloudy': observation.weather[0].id > 800 && observation.weather[0].id < 805
+            }"></i>
+            <h3>{{observation.weather[0].main}}</h3>
         </div>
     </div>
     <div class="row">
-        <div class="'col-md-3 alert alert-info">
-            <span>feels like {{observation.feelslike_f}}&deg;</span>
+        <div class="col-md-3 alert alert-info">
+            <span>{{observation.main.temp}} &deg;K</span>
+        </div>
+        <div class="col-md-3 alert alert-info">
+            <span>{{observation.main.humidity}}% RH</span>
+        </div>
+        <div class="col-md-3 alert alert-info">
+            <span>{{observation.main.pressure}} kbar</span>
+        </div>
+        <div class="col-md-3 alert alert-info">
+            <span>{{observation.wind.speed}} m/s</span>
         </div>
     </div>
 </div>

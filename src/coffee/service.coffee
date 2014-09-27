@@ -1,5 +1,9 @@
 module = angular.module 'leapboard.service', ['leapboard.config']
 
+module.factory 'moment', ['$window', ($window) ->
+  $window.moment
+]
+
 module.factory 'input', ['$window', ($window) ->
   swipeWatcher: null
   lastDirection: null
@@ -49,13 +53,14 @@ module.factory 'redditWidget', ['$http', ($http) ->
           thumbnail: v.data.thumbnail
 ]
 
-module.factory 'weatherWidget', ['$http', 'weather', ($http, weather) ->
-  (apiKey, zip) ->
+module.factory 'weatherWidget', ['$http', 'weather', 'moment', ($http, weather, moment) ->
+  ->
     id: 'weather'
     lastUpdate: 0
     update: ->
-      $http.jsonp("#{weather.baseUri}/#{weather.apiKey}/conditions/q/#{weather.zip}.json?callback=JSON_CALLBACK")
+      return unless moment().diff(@lastUpdate, 'seconds') > weather.updateInterval
+      $http.jsonp("#{weather.baseUri}/?q=#{weather.location}&callback=JSON_CALLBACK")
       .success (data) =>
-        @lastUpdate = new Date().getTime()
-        @observation = data.current_observation
+        @lastUpdate = moment()
+        @observation = data
 ]

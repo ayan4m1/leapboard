@@ -15,7 +15,8 @@
     "bootswatch-scss": "3.2.x",
     "fontawesome": "4.2.x",
     "leapjs": "0.6.x",
-    "weather-icons": "~0.0.1"
+    "weather-icons": "~0.0.1",
+    "momentjs": "~2.8.3"
   },
   "devDependencies": {
     "bootstrap": "3.2.x",

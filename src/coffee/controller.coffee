@@ -7,7 +7,7 @@ module.controller 'HomeController', ['$scope', '$http', 'input', 'redditWidget',
   $scope.title = 'Home'
   $scope.widgets = [
     redditWidget()
-    weatherWidget('changeme') # todo: make this configurable
+    weatherWidget()
   ]
   $scope.select = (idx) ->
     $scope.selected?.selected = false

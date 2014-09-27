@@ -62,6 +62,7 @@ gulp.task 'update', -> [
     "#{lib}/jquery/dist/jquery.js"
     "#{lib}/bootstrap/dist/js/bootstrap.js"
     "#{lib}/leapjs/leap-0.6.2.js"
+    "#{lib}/momentjs/moment.js"
   ]).pipe(flatten()).pipe(gulp.dest("#{dist}js/lib"))
 
   # coffee
