@@ -1,27 +1,31 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
-            <h1>{{observation.name}}</h1>
-            <i class="wi wi-lg condition-icon"></i>
-        </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Currently</h3>
+                    <h3 class="panel-title">{{observation.name}}</h3>
                 </div>
-                <div class="panel-heading">
-                    <span>{{currentConditions}}</span>
+                <div class="panel-body">
+                    <i class="wi text-lg" ng-class="conditionIcon"></i>
+                    <p class="text-right">{{currentConditions}}</p>
                 </div>
             </div>
+        </div>
+        <div class="col-md-8">
+            <p class="text-lg">{{currentTime | formatDate: 'HH:mm:ss'}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">Conditions</h3>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><i class="wi fa-fw fa-lg wi-thermometer" title="Temperature"></i><span>{{observation.main.temp}} &deg;{{units.temp}}</span></li>
-                    <li class="list-group-item"><i class="fa fa-fw fa-lg fa-tachometer" title="Humidity"></i><span>{{observation.main.humidity}}% RH</span></li>
-                    <li class="list-group-item"><i class="fa fa-fw fa-lg fa-umbrella" title="Pressure"></i><span>{{observation.main.pressure}} hPa</span></li>
-                    <li class="list-group-item"><i class="wi fa-fw fa-lg wi-strong-wind" title="Wind"></i><span>{{observation.wind.speed}} {{units.wind}}</span></li>
+                    <li class="list-group-item"><i class="wi fa-fw fa-2x wi-thermometer" title="Temperature"></i><span>{{observation.main.temp}} &deg;{{units.temp}}</span></li>
+                    <li class="list-group-item"><i class="fa fa-fw fa-2x fa-tachometer" title="Humidity"></i><span>{{observation.main.humidity}}% RH</span></li>
+                    <li class="list-group-item"><i class="fa fa-fw fa-2x fa-umbrella" title="Pressure"></i><span>{{observation.main.pressure}} hPa</span></li>
+                    <li class="list-group-item"><i class="wi fa-fw fa-2x wi-strong-wind" title="Wind"></i><span>{{observation.wind.speed}} {{units.wind}}</span></li>
                 </ul>
                 <div class="panel-footer text-right">updated {{lastUpdated | formatDate: 'HH:mm:ss'}}</div>
             </div>

@@ -9,7 +9,7 @@ module.directive 'reddit', ->
     links: '='
   templateUrl: 'partials/reddit.html'
 
-module.directive 'weather', ['weather', 'moment', (weather, moment) ->
+module.directive 'weather', ['$interval', 'weather', 'moment', ($interval, weather, moment) ->
   restrict: 'E'
   scope:
     observation: '='
@@ -25,7 +25,7 @@ module.directive 'weather', ['weather', 'moment', (weather, moment) ->
       wind: if weather.units is 'imperial' then 'mph' else 'm/s'
 
     # magic numbers from http://openweathermap.org/weather-conditions
-    getIcon = (observation) ->
+    conditionIcon = (observation) ->
       weather = observation.weather
 
       hasCondition = (condition) -> weather.filter((v) -> v.id is condition).length > 0
@@ -62,10 +62,16 @@ module.directive 'weather', ['weather', 'moment', (weather, moment) ->
       # cannot determine state
       return 'wi-alien'
 
-    scope.$watch('observation', (v) ->
+    scope.$watch 'observation', (v) ->
       return unless v?
-      elem.find('.condition-icon').addClass(getIcon(v))
       scope.lastUpdated = moment()
+      scope.conditionIcon = conditionIcon(v)
       scope.currentConditions = weather.map((v) -> v.description).join(', ')
-    )
+
+    updateHandle = $interval(->
+      scope.currentTime = moment()
+    , 1000) # every second
+
+    elem.on 'destroy', ->
+      $interval.cancel(updateHandle)
 ]
