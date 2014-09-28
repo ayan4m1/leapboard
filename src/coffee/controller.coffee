@@ -1,6 +1,27 @@
-module = angular.module 'leapboard.controller', ['leapboard.service']
+module = angular.module 'leapboard.controller', [
+  'leapboard.config'
+  'leapboard.service'
+]
 
-module.controller 'HomeController', ['$scope', '$http', 'input', 'redditWidget', 'weatherWidget', ($scope, $http, inputProvider, redditWidget, weatherWidget) ->
+module.controller 'HomeController', [
+  '$scope'
+  '$interval'
+  '$http'
+  'input'
+  'moment'
+  'updateInterval'
+  'redditWidget'
+  'weatherWidget'
+, (
+  $scope
+  $interval
+  $http
+  inputProvider
+  moment
+  updateInterval
+  redditWidget
+  weatherWidget
+) ->
   $('#widget-carousel').carousel(
     interval: false
   )
@@ -20,7 +41,7 @@ module.controller 'HomeController', ['$scope', '$http', 'input', 'redditWidget',
 
     if direction is 'left'
       idx--
-      $('#widget-carousel').carousel('next')
+      $('#widget-carousel').carousel('next') # todo: get this out of the controller
     else if direction is 'right'
       idx++
       $('#widget-carousel').carousel('prev')
@@ -30,4 +51,12 @@ module.controller 'HomeController', ['$scope', '$http', 'input', 'redditWidget',
 
   inputProvider.connect()
   $scope.select(0)
+
+  # update selected widget periodically
+  updateHandle = $interval(->
+    $scope.selected.update()
+  , updateInterval)
+
+  $scope.$on '$destroy', ->
+    $interval.cancel(updateHandle)
 ]
