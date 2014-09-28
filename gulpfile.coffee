@@ -35,8 +35,10 @@ gulp.task 'default', ['update'], ->
 
 gulp.task 'update', -> [
   # icon fonts
-  gulp.src("#{lib}fontawesome/fonts/*").pipe(gulp.dest("#{dist}fonts"))
-  gulp.src("#{lib}weather-icons/font/*").pipe(gulp.dest("#{dist}font"))
+  gulp.src([
+    "#{lib}fontawesome/fonts/*"
+    "#{lib}weather-icons/fonts/*"
+  ]).pipe(gulp.dest("#{dist}fonts"))
 
   # images
   gulp.src("#{src}img/*").pipe(gulp.dest("#{dist}img"))
