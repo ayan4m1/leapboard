@@ -42,6 +42,7 @@ module.factory 'input', ['$window', ($window) ->
 module.factory 'redditWidget', ['$http', ($http) ->
   ->
     id: 'reddit'
+    links: []
     update: ->
       $http(
         method: 'GET'
@@ -53,14 +54,14 @@ module.factory 'redditWidget', ['$http', ($http) ->
           thumbnail: v.data.thumbnail
 ]
 
-module.factory 'weatherWidget', ['$http', 'weather', 'moment', ($http, weather, moment) ->
+module.factory 'weatherWidget', ['$http', 'weather', ($http, weather) ->
   ->
     id: 'weather'
-    lastUpdate: 0
+    observation: null
     update: ->
-      return unless moment().diff(@lastUpdate, 'seconds') > weather.updateInterval
-      $http.jsonp("#{weather.baseUri}/?q=#{weather.location}&callback=JSON_CALLBACK")
+      # todo: do not update more than every 10 minutes
+      $http.jsonp("#{weather.baseUri}/?q=#{weather.location}&units=#{weather.units}&callback=JSON_CALLBACK")
       .success (data) =>
-        @lastUpdate = moment()
+        return unless data.weather?.length? and data.weather.length > 0
         @observation = data
 ]

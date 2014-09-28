@@ -1,26 +1,33 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-12">
             <h1>{{observation.name}}</h1>
-            <i class="wi wi-lg" ng-class="{
-                'wi-day-sunny': observation.weather[0].id == 800,
-                'wi-day-cloudy': observation.weather[0].id > 800 && observation.weather[0].id < 805
-            }"></i>
-            <h3>{{observation.weather[0].main}}</h3>
+            <i class="wi wi-lg condition-icon"></i>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Currently</h3>
+                </div>
+                <div class="panel-heading">
+                    <span>{{currentConditions}}</span>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Conditions</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><i class="wi fa-fw fa-lg wi-thermometer" title="Temperature"></i><span>{{observation.main.temp}} &deg;{{units.temp}}</span></li>
+                    <li class="list-group-item"><i class="fa fa-fw fa-lg fa-tachometer" title="Humidity"></i><span>{{observation.main.humidity}}% RH</span></li>
+                    <li class="list-group-item"><i class="fa fa-fw fa-lg fa-umbrella" title="Pressure"></i><span>{{observation.main.pressure}} hPa</span></li>
+                    <li class="list-group-item"><i class="wi fa-fw fa-lg wi-strong-wind" title="Wind"></i><span>{{observation.wind.speed}} {{units.wind}}</span></li>
+                </ul>
+                <div class="panel-footer text-right">updated {{lastUpdated | formatDate: 'HH:mm:ss'}}</div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-3 alert alert-info">
-            <span>{{observation.main.temp}} &deg;K</span>
-        </div>
-        <div class="col-md-3 alert alert-info">
-            <span>{{observation.main.humidity}}% RH</span>
-        </div>
-        <div class="col-md-3 alert alert-info">
-            <span>{{observation.main.pressure}} kbar</span>
-        </div>
-        <div class="col-md-3 alert alert-info">
-            <span>{{observation.wind.speed}} m/s</span>
-        </div>
+    <div class="text-muted text-right">
+        data graciously provided by <a href="https://openweathermap.org/" target="_blank">openweathermap</a>
     </div>
 </div>
